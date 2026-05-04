@@ -14,15 +14,14 @@ Hook-based MI evaluation across **TabPFN v2/v2.5**, **TabICL v2**, **TabDPT**, *
 
 Use the following order when documents disagree:
 
-1. `paper/main.tex` — canonical paper text, claims, dataset counts, seed usage, and final framing.
-2. `frozen_artifacts/*.json` — bundled aggregated JSONs that drive every numbered table and figure in the paper. Used by `make reproduce-paper`.
-3. `results/rd5_fullscale/aggregated/aggregated_results.json`, `results/phase7/tabdpt_probing/aggregated_3seed.json`, `results/phase7/tabdpt_causal/aggregated_3seed.json`, `results/rd6/tabpfn25_fullscale/aggregated/*.json`, `results/phase8a/nonlinear_probing/lofo_primary_endpoint.json`, `results/phase9_nam_holdout/*.json` — full per-experiment aggregated artifacts.
-4. Appendix M of `paper/main.tex` (Artifact Manifest) maps every numbered table and figure to its source JSON and generation script.
+1. `frozen_artifacts/*.json` — bundled aggregated JSONs that drive every numbered table and figure. Used by `make reproduce-paper-frozen` and consumable without GPU/NAS access.
+2. `results/rd5_fullscale/aggregated/aggregated_results.json`, `results/phase7/tabdpt_probing/aggregated_3seed.json`, `results/phase7/tabdpt_causal/aggregated_3seed.json`, `results/rd6/tabpfn25_fullscale/aggregated/*.json`, `results/phase8a/nonlinear_probing/lofo_primary_endpoint.json`, `results/phase9_nam_holdout/*.json` — full per-experiment aggregated artifacts.
+3. `BENCHMARK_CARD.md` and `croissant.json` — datasheet and machine-readable metadata.
 
 Notes on storage:
 
-- `results/` and `logs/` are symlinks to NAS-backed storage on the build machine. Reviewers reproducing the paper without NAS access should use `frozen_artifacts/` and `make reproduce-paper`.
-- All claims in the paper trace to JSON files in `frozen_artifacts/` or to the per-experiment aggregates listed above.
+- `results/` and `logs/` are symlinks to NAS-backed storage on the build machine. External users should rely on `frozen_artifacts/` and `make reproduce-paper-frozen`.
+- All summary numerics trace to JSON files in `frozen_artifacts/` or to the per-experiment aggregates listed above.
 
 ## Phase Overview
 
@@ -91,7 +90,7 @@ Notes on storage:
 34. **M7C-T3 — TabDPT Causal + CKA**: L0 peak causal, uniform CKA (mean=0.86) — distributed strategy
 35. **M7C-T4 — TabDPT SAE + USAE**: 16× TopK SAE L1 max_r=0.49, L8 max_r=0.40; cross-model with TabPFN/TabICL
 36. **M7C-T5 — TabDPT Analysis Note**: `research_directions/phase7_tabdpt.md`
-37. **M7D-T1 — Paper Update**: `paper/main.tex` updated with TabDPT (5th model), SAE scaling, real-world causal
+37. **M7D-T1 — Documentation Update**: TabDPT (5th model), SAE scaling, real-world causal milestones documented
 38. **M7D-T2 — README/Makefile Update**: Phase 7 documented
 
 ## Prerequisites
