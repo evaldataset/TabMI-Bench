@@ -1,13 +1,44 @@
 {
   "@context": {
+    "@language": "en",
     "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
     "cr": "http://mlcommons.org/croissant/",
     "rai": "http://mlcommons.org/croissant/RAI/",
-    "sc": "https://schema.org/"
+    "data": {"@id": "cr:data", "@type": "@json"},
+    "dataType": {"@id": "cr:dataType", "@type": "@vocab"},
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {"@id": "cr:examples", "@type": "@json"},
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
   },
   "@type": "sc:Dataset",
   "name": "TabMI-Bench",
   "description": "A protocol benchmark for evaluating mechanistic interpretability (MI) methods on Tabular Foundation Models (TFMs). Provides hook-based activation extraction for 5 TFMs across 3 architectural families, controlled synthetic probes (4 function types), negative controls, a 4-step evaluation protocol, and reference baseline measurements.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
   "url": "https://github.com/evaldataset/TabMI-Bench",
   "sameAs": "https://huggingface.co/datasets/EvalData/TabMI-Bench",
   "license": "https://opensource.org/licenses/MIT",
@@ -27,68 +58,236 @@
     "steering vectors"
   ],
   "inLanguage": "en",
+  "citeAs": "@inproceedings{anonymous2026tabmibench, title={TabMI-Bench: Evaluating Mechanistic Interpretability Methods Across Tabular Foundation Model Architectures}, author={Anonymous}, booktitle={Advances in Neural Information Processing Systems (NeurIPS) Evaluations \\& Datasets Track}, year={2026}}",
   "distribution": [
     {
       "@type": "cr:FileObject",
-      "name": "source-code",
-      "description": "Python source code for hook implementations, data generators, and experiment scripts",
+      "@id": "github-repo",
+      "name": "github-repo",
+      "description": "Public GitHub repository containing all source code, hooks, evaluation scripts, tests, and frozen artifacts.",
       "contentUrl": "https://github.com/evaldataset/TabMI-Bench",
-      "encodingFormat": "application/zip"
+      "encodingFormat": "application/zip",
+      "sha256": "main-branch-head"
     },
     {
       "@type": "cr:FileObject",
-      "name": "synthetic-data-generator",
-      "description": "Deterministic synthetic data generators for 4 function families (bilinear, sinusoidal, polynomial, mixed)",
-      "contentUrl": "src/data/synthetic_generator.py",
-      "encodingFormat": "text/x-python"
+      "@id": "huggingface-dataset",
+      "name": "huggingface-dataset",
+      "description": "HuggingFace dataset repository with frozen JSON aggregated artifacts driving paper-facing tables and figures.",
+      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench",
+      "encodingFormat": "application/json",
+      "sha256": "main-branch-head"
     },
     {
       "@type": "cr:FileObject",
-      "name": "reference-baselines",
-      "description": "Aggregated multi-seed reference baseline results (JSON format)",
-      "contentUrl": "results/rd5_fullscale/aggregated/aggregated_results.json",
-      "encodingFormat": "application/json"
+      "@id": "rd5-fullscale-aggregated",
+      "name": "rd5-fullscale-aggregated",
+      "description": "Aggregated 5-seed multi-model intermediary probing results (Table 1 source).",
+      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/rd5_fullscale_aggregated.json",
+      "encodingFormat": "application/json",
+      "sha256": "main-branch-head"
     },
     {
       "@type": "cr:FileObject",
-      "name": "per-seed-results",
-      "description": "Per-seed experiment results for reproducibility verification",
-      "contentUrl": "results/",
-      "encodingFormat": "application/json"
+      "@id": "tabdpt-probing-3seed",
+      "name": "tabdpt-probing-3seed",
+      "description": "TabDPT in-family holdout probing results aggregated over 3 seeds.",
+      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/tabdpt_probing_3seed.json",
+      "encodingFormat": "application/json",
+      "sha256": "main-branch-head"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "tabdpt-causal-3seed",
+      "name": "tabdpt-causal-3seed",
+      "description": "TabDPT noising-based causal tracing results aggregated over 3 seeds.",
+      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/tabdpt_causal_3seed.json",
+      "encodingFormat": "application/json",
+      "sha256": "main-branch-head"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "nam-holdout",
+      "name": "nam-holdout",
+      "description": "NAM out-of-family holdout per-seed layer-wise R^2 profiles.",
+      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/nam_holdout.json",
+      "encodingFormat": "application/json",
+      "sha256": "main-branch-head"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "lofo-primary-endpoint",
+      "name": "lofo-primary-endpoint",
+      "description": "Leave-one-function-out robustness for the primary endpoint sigma2_profile.",
+      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/lofo_primary_endpoint.json",
+      "encodingFormat": "application/json",
+      "sha256": "main-branch-head"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "tabpfn25-fullscale-aggregated",
+      "name": "tabpfn25-fullscale-aggregated",
+      "description": "TabPFN v2 vs v2.5 logit-lens, coefficient probing, intermediary probing, and CKA aggregated over 3 seeds.",
+      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/tabpfn25_fullscale_aggregated.json",
+      "encodingFormat": "application/json",
+      "sha256": "main-branch-head"
     }
   ],
-  "cr:recordSet": [
+  "recordSet": [
     {
       "@type": "cr:RecordSet",
+      "@id": "synthetic-probing-results",
       "name": "synthetic-probing-results",
-      "description": "Layer-wise intermediary probing R² values for each model and seed",
+      "description": "Layer-wise intermediary probing R^2 values for each (model, seed, function_type, layer). Source: rd5_fullscale_aggregated.json (intermediary_probing block).",
       "field": [
-        {"@type": "cr:Field", "name": "model", "description": "TFM model name", "dataType": "sc:Text"},
-        {"@type": "cr:Field", "name": "seed", "description": "Random seed", "dataType": "sc:Integer"},
-        {"@type": "cr:Field", "name": "function_type", "description": "Synthetic function family", "dataType": "sc:Text"},
-        {"@type": "cr:Field", "name": "layer", "description": "Layer index", "dataType": "sc:Integer"},
-        {"@type": "cr:Field", "name": "intermediary_r2", "description": "Linear probe R² for intermediary variable", "dataType": "sc:Float"}
+        {
+          "@type": "cr:Field",
+          "@id": "synthetic-probing-results/model",
+          "name": "model",
+          "description": "TFM model name (one of: tabpfn, tabicl, tabdpt, iltm, nam).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "rd5-fullscale-aggregated"},
+            "extract": {"jsonPath": "$.intermediary_probing.*"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "synthetic-probing-results/seed",
+          "name": "seed",
+          "description": "Random seed (one of: 42, 123, 456, 789, 1024).",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {"@id": "rd5-fullscale-aggregated"},
+            "extract": {"jsonPath": "$.seeds[*]"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "synthetic-probing-results/function_type",
+          "name": "function_type",
+          "description": "Synthetic function family (bilinear, sinusoidal, polynomial, mixed).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "rd5-fullscale-aggregated"},
+            "extract": {"jsonPath": "$.function_type"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "synthetic-probing-results/layer",
+          "name": "layer",
+          "description": "Layer index (0-based).",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {"@id": "rd5-fullscale-aggregated"},
+            "extract": {"jsonPath": "$.intermediary_probing.tabpfn.intermediary_r2_mean[*]"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "synthetic-probing-results/intermediary_r2",
+          "name": "intermediary_r2",
+          "description": "Linear-probe R^2 for the intermediary variable at this (model, seed, function, layer).",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {"@id": "rd5-fullscale-aggregated"},
+            "extract": {"jsonPath": "$.intermediary_probing.*.intermediary_r2_mean[*]"}
+          }
+        }
       ]
     },
     {
       "@type": "cr:RecordSet",
+      "@id": "causal-tracing-results",
       "name": "causal-tracing-results",
-      "description": "Noising-based causal sensitivity per layer for each model and seed",
+      "description": "Noising-based causal sensitivity per layer for each (model, seed, layer). Source: tabdpt_causal_3seed.json and rd5_fullscale_aggregated.json patching block.",
       "field": [
-        {"@type": "cr:Field", "name": "model", "description": "TFM model name", "dataType": "sc:Text"},
-        {"@type": "cr:Field", "name": "seed", "description": "Random seed", "dataType": "sc:Integer"},
-        {"@type": "cr:Field", "name": "layer", "description": "Layer index", "dataType": "sc:Integer"},
-        {"@type": "cr:Field", "name": "normalized_sensitivity", "description": "Normalized MSE increase from noise injection", "dataType": "sc:Float"}
+        {
+          "@type": "cr:Field",
+          "@id": "causal-tracing-results/model",
+          "name": "model",
+          "description": "TFM model name.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "tabdpt-causal-3seed"},
+            "extract": {"jsonPath": "$.model"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "causal-tracing-results/seed",
+          "name": "seed",
+          "description": "Random seed.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {"@id": "tabdpt-causal-3seed"},
+            "extract": {"jsonPath": "$.seeds[*]"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "causal-tracing-results/layer",
+          "name": "layer",
+          "description": "Layer index (0-based).",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {"@id": "tabdpt-causal-3seed"},
+            "extract": {"jsonPath": "$.mean_normalized_sensitivity[*]"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "causal-tracing-results/normalized_sensitivity",
+          "name": "normalized_sensitivity",
+          "description": "Normalized MSE-increase from layer-wise noise injection (max-normalized within profile).",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {"@id": "tabdpt-causal-3seed"},
+            "extract": {"jsonPath": "$.mean_normalized_sensitivity[*]"}
+          }
+        }
       ]
     },
     {
       "@type": "cr:RecordSet",
+      "@id": "applicability-matrix",
       "name": "applicability-matrix",
-      "description": "MI technique applicability labels per model",
+      "description": "Evidence-coded MI technique applicability labels per model (Table 8 in paper, hand-curated reference table; canonical encoding in BENCHMARK_CARD.md and Table 8 LaTeX source).",
       "field": [
-        {"@type": "cr:Field", "name": "technique", "description": "MI technique name", "dataType": "sc:Text"},
-        {"@type": "cr:Field", "name": "model", "description": "TFM model name", "dataType": "sc:Text"},
-        {"@type": "cr:Field", "name": "label", "description": "Supported / Limited / Not established", "dataType": "sc:Text"}
+        {
+          "@type": "cr:Field",
+          "@id": "applicability-matrix/technique",
+          "name": "technique",
+          "description": "MI technique name (e.g. linear-probing, logit-lens, activation-patching, sae, cka).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "github-repo"},
+            "extract": {"jsonPath": "$.technique"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applicability-matrix/model",
+          "name": "model",
+          "description": "TFM model name.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "github-repo"},
+            "extract": {"jsonPath": "$.model"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applicability-matrix/label",
+          "name": "label",
+          "description": "Applicability label: Supported, Limited, or Not established.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "github-repo"},
+            "extract": {"jsonPath": "$.label"}
+          }
+        }
       ]
     }
   ],
