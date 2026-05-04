@@ -166,7 +166,7 @@ def save_fig(
 
     Args:
         fig: Matplotlib Figure object.
-        path: Base path WITHOUT extension (e.g., 'paper/figures/fig1').
+        path: Base path WITHOUT extension (e.g., 'figures/fig1').
         dpi: Resolution for raster formats.
         formats: List of extensions. Defaults to EXPORT_FORMATS.
         close: Whether to close the figure after saving.
