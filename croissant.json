@@ -8,7 +8,7 @@
   "@type": "sc:Dataset",
   "name": "TabMI-Bench",
   "description": "A protocol benchmark for evaluating mechanistic interpretability (MI) methods on Tabular Foundation Models (TFMs). Provides hook-based activation extraction for 5 TFMs across 3 architectural families, controlled synthetic probes (4 function types), negative controls, a 4-step evaluation protocol, and reference baseline measurements.",
-  "url": "https://github.com/anonymous/tabmi-bench",
+  "url": "https://github.com/evaldataset/TabMI-Bench",
   "license": "https://opensource.org/licenses/MIT",
   "version": "1.0.0",
   "datePublished": "2026-04-15",
@@ -31,7 +31,7 @@
       "@type": "cr:FileObject",
       "name": "source-code",
       "description": "Python source code for hook implementations, data generators, and experiment scripts",
-      "contentUrl": "https://github.com/anonymous/tabmi-bench",
+      "contentUrl": "https://github.com/evaldataset/TabMI-Bench",
       "encodingFormat": "application/zip"
     },
     {
