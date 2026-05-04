@@ -1,0 +1,128 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "sc": "https://schema.org/"
+  },
+  "@type": "sc:Dataset",
+  "name": "TabMI-Bench",
+  "description": "A protocol benchmark for evaluating mechanistic interpretability (MI) methods on Tabular Foundation Models (TFMs). Provides hook-based activation extraction for 5 TFMs across 3 architectural families, controlled synthetic probes (4 function types), negative controls, a 4-step evaluation protocol, and reference baseline measurements.",
+  "url": "https://github.com/anonymous/tabmi-bench",
+  "license": "https://opensource.org/licenses/MIT",
+  "version": "1.0.0",
+  "datePublished": "2026-04-15",
+  "creator": {
+    "@type": "sc:Organization",
+    "name": "Anonymous (double-blind submission)"
+  },
+  "keywords": [
+    "mechanistic interpretability",
+    "tabular foundation models",
+    "benchmark",
+    "probing",
+    "activation patching",
+    "sparse autoencoders",
+    "steering vectors"
+  ],
+  "inLanguage": "en",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "name": "source-code",
+      "description": "Python source code for hook implementations, data generators, and experiment scripts",
+      "contentUrl": "https://github.com/anonymous/tabmi-bench",
+      "encodingFormat": "application/zip"
+    },
+    {
+      "@type": "cr:FileObject",
+      "name": "synthetic-data-generator",
+      "description": "Deterministic synthetic data generators for 4 function families (bilinear, sinusoidal, polynomial, mixed)",
+      "contentUrl": "src/data/synthetic_generator.py",
+      "encodingFormat": "text/x-python"
+    },
+    {
+      "@type": "cr:FileObject",
+      "name": "reference-baselines",
+      "description": "Aggregated multi-seed reference baseline results (JSON format)",
+      "contentUrl": "results/rd5_fullscale/aggregated/aggregated_results.json",
+      "encodingFormat": "application/json"
+    },
+    {
+      "@type": "cr:FileObject",
+      "name": "per-seed-results",
+      "description": "Per-seed experiment results for reproducibility verification",
+      "contentUrl": "results/",
+      "encodingFormat": "application/json"
+    }
+  ],
+  "cr:recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "name": "synthetic-probing-results",
+      "description": "Layer-wise intermediary probing R² values for each model and seed",
+      "field": [
+        {"@type": "cr:Field", "name": "model", "description": "TFM model name", "dataType": "sc:Text"},
+        {"@type": "cr:Field", "name": "seed", "description": "Random seed", "dataType": "sc:Integer"},
+        {"@type": "cr:Field", "name": "function_type", "description": "Synthetic function family", "dataType": "sc:Text"},
+        {"@type": "cr:Field", "name": "layer", "description": "Layer index", "dataType": "sc:Integer"},
+        {"@type": "cr:Field", "name": "intermediary_r2", "description": "Linear probe R² for intermediary variable", "dataType": "sc:Float"}
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "name": "causal-tracing-results",
+      "description": "Noising-based causal sensitivity per layer for each model and seed",
+      "field": [
+        {"@type": "cr:Field", "name": "model", "description": "TFM model name", "dataType": "sc:Text"},
+        {"@type": "cr:Field", "name": "seed", "description": "Random seed", "dataType": "sc:Integer"},
+        {"@type": "cr:Field", "name": "layer", "description": "Layer index", "dataType": "sc:Integer"},
+        {"@type": "cr:Field", "name": "normalized_sensitivity", "description": "Normalized MSE increase from noise injection", "dataType": "sc:Float"}
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "name": "applicability-matrix",
+      "description": "MI technique applicability labels per model",
+      "field": [
+        {"@type": "cr:Field", "name": "technique", "description": "MI technique name", "dataType": "sc:Text"},
+        {"@type": "cr:Field", "name": "model", "description": "TFM model name", "dataType": "sc:Text"},
+        {"@type": "cr:Field", "name": "label", "description": "Supported / Limited / Not established", "dataType": "sc:Text"}
+      ]
+    }
+  ],
+  "rai:dataCollection": "Synthetic data is generated deterministically from known mathematical functions with fixed random seeds. Real-world datasets are sourced from scikit-learn built-in datasets and OpenML public repositories. No human subjects data is collected.",
+  "rai:dataCollectionType": "Synthetic generation + public dataset aggregation",
+  "rai:dataCollectionMissingness": "One real-world dataset (Concrete) was excluded due to an OpenML cache failure. All other datasets loaded successfully.",
+  "rai:dataBiases": "Synthetic probes use continuous numeric features only; categorical features and missing values are not tested in the core benchmark. Real-world datasets inherit biases from their original sources (e.g., California Housing reflects historical housing patterns). The benchmark evaluates MI methods, not model fairness.",
+  "rai:dataLimitations": [
+    "Core experiments use small scale (N_train=100, N_test=50)",
+    "Only regression synthetic probes; classification probes are secondary",
+    "5 models from 3 architectural families; generalization to future TFMs is not guaranteed",
+    "Computation profiles are descriptive reference baselines, not universal laws",
+    "Benchmark outputs are diagnostic measurements, not deployment certifications"
+  ],
+  "rai:dataUseCases": "Evaluating new MI techniques on TFMs, benchmarking new TFM architectures against MI reference baselines, educational resource for understanding TFM internal computation.",
+  "rai:dataSensitiveInformation": "No personally identifiable information (PII). No sensitive attributes beyond those in the original public datasets (e.g., Adult Income contains demographic attributes).",
+  "rai:dataSocialImpact": "Positive: enables standardized MI evaluation for tabular AI in high-stakes domains (credit scoring, medical diagnosis). Risk: benchmark outputs may create false confidence if over-interpreted as safety certifications. Mitigation: explicit scope limitations and risk caveats in the paper.",
+  "rai:dataSyntheticGeneration": "Core synthetic probes are fully synthetic with known ground-truth intermediary variables. Real-world datasets are not synthetic.",
+  "rai:dataMaintenancePlan": "Version-pinned snapshots ensure reproducibility. New model hooks and reference baselines will be added as TFMs are released. Community contributions welcomed via pull requests.",
+  "rai:dataSourceDatasets": [
+    {"name": "California Housing", "url": "https://www.openml.org/d/8092", "license": "CC0", "purpose": "real-world causal tracing + steering validation"},
+    {"name": "Diabetes (sklearn)", "url": "https://scikit-learn.org/stable/datasets/toy_dataset.html", "license": "BSD-3-Clause", "purpose": "real-world causal tracing + steering validation"},
+    {"name": "Wine Quality", "url": "https://www.openml.org/d/287", "license": "CC0", "purpose": "real-world steering"},
+    {"name": "Bike Sharing", "url": "https://www.openml.org/d/44063", "license": "CC0", "purpose": "real-world steering"},
+    {"name": "Abalone", "url": "https://www.openml.org/d/183", "license": "CC0", "purpose": "real-world causal tracing"},
+    {"name": "Boston Housing", "url": "https://www.openml.org/d/531", "license": "CC0", "purpose": "real-world causal tracing"},
+    {"name": "Energy Efficiency", "url": "https://www.openml.org/d/42178", "license": "CC0", "purpose": "real-world causal tracing"},
+    {"name": "Breast Cancer (sklearn)", "url": "https://scikit-learn.org/stable/datasets/toy_dataset.html", "license": "BSD-3-Clause", "purpose": "real-world causal tracing + classification probing"},
+    {"name": "Iris (sklearn)", "url": "https://scikit-learn.org/stable/datasets/toy_dataset.html", "license": "BSD-3-Clause", "purpose": "classification probing"},
+    {"name": "Adult Income", "url": "https://www.openml.org/d/1590", "license": "CC0", "purpose": "real-world causal tracing"},
+    {"name": "Credit-G", "url": "https://www.openml.org/d/31", "license": "CC0", "purpose": "real-world causal tracing"}
+  ],
+  "rai:dataProvenance": {
+    "collection": "All real-world datasets are loaded at runtime from public repositories (scikit-learn built-in datasets, OpenML.org); no new human-subjects data collection performed.",
+    "preprocessing": "Real-world: StandardScaler applied with fixed random seed for train/test split; categorical features encoded via OpenML's default encoders. Synthetic: features generated via numpy.random.default_rng(seed) and labels computed from closed-form mathematical functions with optional Gaussian noise.",
+    "annotation": "No human annotation. Synthetic-probe ground-truth intermediary variables (e.g., a*b for bilinear probe) are computed analytically from input features."
+  }
+}

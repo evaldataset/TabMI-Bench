@@ -1,0 +1,30 @@
+# Phase 7: Real-World Causal Tracing
+# Noising-based causal tracing on 11 OpenML/real-world benchmarks
+
+seed: 42
+device: "cuda"  # cuda:0, cuda:1, etc.
+noise_scale: 0.5
+quick_run: false  # true = 3-5 datasets only
+
+# Datasets (11 total)
+datasets:
+  - california_housing
+  - diabetes
+  - bike_sharing
+  - wine_quality
+  - abalone
+  - concrete
+  - adult_income
+  - bank_marketing
+  - credit_g
+  - segment
+  - vehicle
+
+# Models for causal tracing
+models:
+  - tabpfn   # TabPFN v2 (12 layers)
+  - tabicl   # TabICL v2 (12 blocks)
+  - iltm     # iLTM (3 MLP layers)
+
+# Results
+results_dir: "results/phase7/realworld_causal"

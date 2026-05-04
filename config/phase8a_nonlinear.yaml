@@ -1,0 +1,36 @@
+# Phase 8A: Non-Linear Function Invariance
+# Tests whether computation strategies are function-type invariant
+
+general:
+  random_seed: 42
+  device: cpu
+  quick_run: false
+
+functions:
+  - type: sinusoidal
+    formula: "z = sin(a*b) + c"
+    intermediary: "sin(a*b)"
+  - type: polynomial
+    formula: "z = a^2 + b*c"
+    intermediary: "a^2"
+  - type: mixed
+    formula: "z = sin(a*b) + a*b*c"
+    intermediary: "sin(a*b)"
+  - type: quadratic  # baseline
+    formula: "z = a*b + c"
+    intermediary: "a*b"
+
+data:
+  a_range: [0.5, 3.0]
+  b_range: [0.5, 3.0]
+  c_range: [0.5, 3.0]
+  n_train: 100
+  n_test: 50
+  n_datasets_full: 20
+  n_datasets_quick: 5
+
+probing:
+  complexities: [0, 1]  # linear + MLP
+
+causal_tracing:
+  noise_scale: 0.5

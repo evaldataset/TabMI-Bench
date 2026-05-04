@@ -1,0 +1,33 @@
+# Phase 8B: Real-World MI Extension
+# Steering vectors and SAE on real-world datasets
+
+general:
+  random_seed: 42
+  device: cpu  # steering on CPU, SAE on GPU
+  quick_run: false
+
+steering:
+  target_layer_tabpfn: 6
+  target_layer_tabicl: 10
+  lambdas: [-3, -2, -1, -0.5, 0, 0.5, 1, 2, 3]
+  contrastive_method: median_split  # split by median target value
+
+datasets:
+  - name: california_housing
+    n_train: 200
+    n_test: 50
+  - name: diabetes
+    n_train: 200
+    n_test: 50
+  - name: concrete
+    n_train: 200
+    n_test: 50
+    openml_id: 4353
+  - name: wine_quality
+    n_train: 200
+    n_test: 50
+    openml_id: 287
+  - name: bike_sharing
+    n_train: 200
+    n_test: 50
+    openml_id: 42712

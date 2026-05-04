@@ -1,0 +1,31 @@
+# Phase 7: SAE Scaling Analysis
+# SAE expansion factor sweep from 4x to 256x
+
+seed: 42
+device: "cuda"
+num_datasets: 10  # synthetic datasets
+num_epochs: 100
+batch_size: 256
+
+# Expansion factors to test
+expansion_factors: [4, 16, 32, 64, 128, 256]
+sae_activation: "topk"  # relu, jumprelu, topk
+topk_k_ratio: 0.0625  # k = d_hidden / 16
+
+# Models and layers for SAE training
+targets:
+  tabpfn_l6:
+    model: "tabpfn"
+    layer_index: 6
+    hidden_dim: 192
+  tabpfn_l8:
+    model: "tabpfn"
+    layer_index: 8
+    hidden_dim: 192
+  tabicl_l1:
+    model: "tabicl"
+    layer_index: 1
+    hidden_dim: 512
+
+# Results
+results_dir: "results/phase7/sae_scaling"

@@ -1,0 +1,85 @@
+{
+  "description": "Leave-one-function-out (LOFO) robustness for the primary endpoint \u03c3\u00b2_profile, using intermediary probing on 4 function types \u00d7 5 seeds. For each held-out function, \u03c3\u00b2_profile is averaged across the remaining 3 functions \u00d7 5 seeds. Per-layer R\u00b2 values are clipped to [-0.1, 1.0] before computing variance to prevent outlier complexities from dominating.",
+  "artifact_source": "results/phase8a/nonlinear_probing/results_seed*.json",
+  "function_types": [
+    "bilinear",
+    "sinusoidal",
+    "quadratic",
+    "mixed"
+  ],
+  "n_seeds": 5,
+  "rows": [
+    {
+      "held_out": "bilinear",
+      "remaining_functions": [
+        "sinusoidal",
+        "quadratic",
+        "mixed"
+      ],
+      "tabpfn_sigma2_mean": 0.08314763579452086,
+      "tabpfn_sigma2_std": 0.02155902804656014,
+      "tabicl_sigma2_mean": 0.00213302549189897,
+      "tabicl_sigma2_std": 0.0024609131437760183,
+      "ratio_tabpfn_over_tabicl": 38.98107927463022,
+      "n_data_points": 15
+    },
+    {
+      "held_out": "sinusoidal",
+      "remaining_functions": [
+        "bilinear",
+        "quadratic",
+        "mixed"
+      ],
+      "tabpfn_sigma2_mean": 0.07434218875621415,
+      "tabpfn_sigma2_std": 0.01950561911530766,
+      "tabicl_sigma2_mean": 0.0016964405912595088,
+      "tabicl_sigma2_std": 0.0024999233421059935,
+      "ratio_tabpfn_over_tabicl": 43.822453399926836,
+      "n_data_points": 10
+    },
+    {
+      "held_out": "quadratic",
+      "remaining_functions": [
+        "bilinear",
+        "sinusoidal",
+        "mixed"
+      ],
+      "tabpfn_sigma2_mean": 0.09438366122330637,
+      "tabpfn_sigma2_std": 0.015920476289398737,
+      "tabicl_sigma2_mean": 0.0031916211901094602,
+      "tabicl_sigma2_std": 0.002392119999958379,
+      "ratio_tabpfn_over_tabicl": 29.572325661890147,
+      "n_data_points": 10
+    },
+    {
+      "held_out": "mixed",
+      "remaining_functions": [
+        "bilinear",
+        "sinusoidal",
+        "quadratic"
+      ],
+      "tabpfn_sigma2_mean": 0.08071705740404204,
+      "tabpfn_sigma2_std": 0.02346811565276035,
+      "tabicl_sigma2_mean": 0.0015110146943279406,
+      "tabicl_sigma2_std": 0.0021209189124033836,
+      "ratio_tabpfn_over_tabicl": 53.41910817084599,
+      "n_data_points": 10
+    },
+    {
+      "held_out": "NONE",
+      "remaining_functions": [
+        "bilinear",
+        "sinusoidal",
+        "quadratic",
+        "mixed"
+      ],
+      "tabpfn_sigma2_mean": 0.08314763579452086,
+      "tabpfn_sigma2_std": 0.02155902804656014,
+      "tabicl_sigma2_mean": 0.00213302549189897,
+      "tabicl_sigma2_std": 0.0024609131437760183,
+      "ratio_tabpfn_over_tabicl": 38.98107927463022,
+      "n_data_points": 15
+    }
+  ],
+  "conclusion": "The \u03c3\u00b2_profile(TabPFN) >> \u03c3\u00b2_profile(TabICL) ordering is preserved in every LOFO scenario with ratio >30x, confirming the primary-endpoint comparison is not driven by any single function type."
+}

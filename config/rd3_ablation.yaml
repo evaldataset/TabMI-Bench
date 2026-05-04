@@ -1,0 +1,45 @@
+# config/rd3_ablation.yaml
+# RD-3: Vector Ablation — Hyperparameters
+# Phase 2, Milestone 6
+
+# Global
+random_seed: 42
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+
+# Data
+n_train: 50
+n_test: 20
+
+# Probing direction extraction
+direction_extraction:
+  probe_complexity: 0       # Ridge regression (complexity=0)
+  normalize: true           # normalize coef_ to unit vector
+  token_idx: -1             # label token (last feature block)
+
+# Ablation experiments
+ablation:
+  # Coefficient alpha direction ablation at Layer 6
+  coefficient_ablation:
+    ablation_layer: 6
+    target: alpha           # probe target
+    measure_layers: [7, 8, 9, 10, 11]  # measure R² after ablation
+    r2_drop_threshold: 0.3  # success criterion: R² drop > 0.3
+
+  # Intermediary a*b direction ablation at Layer 5-8
+  intermediary_ablation:
+    ablation_layers: [5, 6, 7, 8]
+    target: ab_product      # probe target
+    mse_increase_threshold: 0.1  # success criterion: MSE increase
+
+# Data for ablation experiments
+data:
+  # z = alpha*x + beta*y
+  linear_regression:
+    alpha: 2.0
+    beta: 3.0
+  # z = a*b + c
+  multiplicative:
+    a_range: [0.5, 3.0]
+    b_range: [0.5, 3.0]
+    c_range: [0.5, 3.0]

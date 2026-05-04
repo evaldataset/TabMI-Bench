@@ -1,0 +1,53 @@
+# config/rd6_sae.yaml
+# RD-6: Sparse Autoencoder — Hyperparameters
+# Phase 3, Milestone 10
+
+# Global
+random_seed: 42
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+
+# Activation collection
+collection_layer: 6
+token_idx: -1  # label token
+n_datasets: 50
+n_train_per_dataset: 50
+n_test_per_dataset: 20
+alpha_range: [0.5, 5.0]
+beta_range: [0.5, 5.0]
+
+# SAE Architecture
+sae_configs:
+  - expansion_factor: 4
+    hidden_dim: 768
+    label: "4× (768 hidden)"
+  - expansion_factor: 8
+    hidden_dim: 1536
+    label: "8× (1536 hidden)"
+
+# Training
+training:
+  lr: 1e-3
+  l1_coeff: 1e-3
+  epochs: 100
+  batch_size: 64
+  optimizer: adam
+  weight_init: xavier_uniform
+
+# Success criteria
+success_criteria:
+  reconstruction_r2: 0.9
+  max_sparsity: 0.20  # fraction of active features < 20%
+  min_correlated_features: 2  # at least 2 features with |r| > 0.7
+  correlation_threshold: 0.7
+
+# Feature Analysis (rd6_feature_analysis.py)
+feature_analysis:
+  top_k: 10
+  expansion_factor: 4  # use 4× for analysis
+
+# Feature Ablation (rd6_feature_ablation.py)
+feature_ablation:
+  top_k_ablate: 5
+  probe_complexity: 0  # Ridge regression
+  probe_test_size: 0.2

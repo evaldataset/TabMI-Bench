@@ -1,0 +1,45 @@
+# config/rd4_phase4b.yaml
+# RD-4 Phase 4B: Real-world Benchmark Data Extension
+# Extension: 5 standard datasets from scikit-learn / UCI / OpenML
+# Script: experiments/rd4_phase4b_realworld.py
+
+random_seed: 42
+quick_run: true
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+results_dir: results/rd4_phase4b/
+
+# Model architecture
+n_layers: 12
+complexities: [0]       # linear probe only
+
+# Data split
+n_train: 200            # quick=200, full=500
+n_test: 50              # quick=50, full=100
+
+# Analysis parameters
+layer_region_start: 5
+layer_region_end: 8
+
+# Datasets
+datasets:
+  - name: california_housing
+    source: scikit-learn
+    n_features: 8
+    task: regression
+  - name: adult_income
+    source: UCI
+    n_features: 14
+    task: classification
+  - name: credit_default
+    source: UCI
+    n_features: 23
+    task: classification
+  - name: wine_quality
+    source: UCI
+    n_features: 11
+    task: regression
+  - name: diabetes_130
+    source: OpenML
+    n_features: 49
+    task: classification

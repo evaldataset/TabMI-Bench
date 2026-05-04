@@ -1,0 +1,38 @@
+# config/rd4_phase4a.yaml
+# RD-4 Phase 4A: Semi-synthetic Data Extension
+# Extension: Noise, missing values, high-dimensional features
+# Script: experiments/rd4_phase4a_semisynthetic.py
+
+random_seed: 42
+quick_run: true
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+results_dir: results/rd4_phase4a/
+
+# Model architecture
+n_layers: 12
+
+# Data generation
+n_datasets: 5           # quick=5, full=20
+n_train: 100
+n_test: 20
+
+# Non-linear functions
+functions:
+  - name: sin_ab_plus_c2
+    formula: "z = sin(a*b) + c^2"
+  - name: a2_plus_bc
+    formula: "z = a^2 + b*c"
+  - name: exp_neg_a_plus_bc
+    formula: "z = exp(-a) + b*c"
+
+# Perturbation sweeps (quick_run uses first subset)
+noise_levels: [0.0, 0.1, 0.5, 1.0, 2.0]
+missing_rates: [0.0, 0.1, 0.2, 0.3]
+feature_dims: [2, 5, 10]
+
+# Quick-run subset
+quick_functions: [sin_ab_plus_c2]
+quick_noise_levels: [0.0, 0.5, 2.0]
+quick_missing_rates: [0.0]
+quick_feature_dims: [2]

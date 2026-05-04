@@ -1,0 +1,42 @@
+# config/rd2_steering.yaml
+# RD-2: Steering Vectors — Hyperparameters
+# Phase 3, Milestone 9
+
+# Global
+random_seed: 42
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+
+# Data
+n_train: 50
+n_test: 10
+
+# Coefficient Steering (rd2_coefficient_steering.py)
+coefficient_steering:
+  alpha_high: 5.0
+  alpha_low: 2.0
+  beta_shared: 3.0
+  alpha_baseline: 2.0
+  beta_baseline: 3.0
+  steering_layer: 6
+  lambda_values: [-2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0]
+  success_criterion_pearson_r: 0.8
+
+# Layer Steering (rd2_layer_steering.py)
+layer_steering:
+  target_layers: [0, 2, 4, 6, 8, 10]
+  lambda_values: [-2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0]
+  alpha_high: 5.0
+  alpha_low: 2.0
+  beta_shared: 3.0
+
+# Boundary Steering (rd2_boundary_steering.py)
+boundary_steering:
+  alpha_a: 2.0
+  beta_a: 3.0
+  alpha_b: 4.0
+  beta_b: 1.0
+  n_test: 20
+  steering_layer: 6
+  lambda_values: [-2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0]
+  success_criterion_accuracy_shift: 0.10  # 10%

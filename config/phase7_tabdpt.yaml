@@ -1,0 +1,35 @@
+# Phase 7: TabDPT Analysis
+# Probing, causal tracing, CKA, and SAE for TabDPT (5th model)
+
+seed: 42
+device: "cuda"
+noise_scale: 0.5
+quick_run: false  # true = 5 synthetic datasets only
+
+# TabDPT architecture
+tabdpt:
+  num_layers: 16
+  hidden_dim: 768
+  num_heads: 8
+
+# SAE parameters
+sae:
+  expansion_factor: 16
+  activation: "topk"
+  topk_k_ratio: 0.0625
+  num_epochs: 100
+  layers: [1, 8]  # L1 (index 0) and L8 (index 8)
+
+# Cross-model SAE targets
+cross_model:
+  tabpfn_l6:
+    model: "tabpfn"
+    layer_index: 6
+    hidden_dim: 192
+  tabicl_l1:
+    model: "tabicl"
+    layer_index: 1
+    hidden_dim: 512
+
+# Results
+results_dir: "results/phase7"

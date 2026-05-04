@@ -1,0 +1,52 @@
+# config/rd7_classification.yaml
+# RD-7: Classification Task Analysis — Hyperparameters
+# Phase 2, Milestone 7
+
+# Global
+random_seed: 42
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt  # use regressor with float binary targets
+
+# Data
+n_train: 40
+n_test: 20
+
+# Classification data generators
+data:
+  linear_classification:
+    alpha: 2.0
+    beta: 3.0
+    n_features: 2
+  xor_data:
+    noise: 0.1
+  circle_data:
+    radius: 1.0
+    noise: 0.1
+  multiclass_gaussian:
+    n_classes: 3
+    n_features: 2
+
+# Decision Boundary Probing (rd7_classification_probing.py)
+probing:
+  probe_complexity: 0       # Ridge regression
+  token_idx: -1             # label token
+  targets:
+    - class_label           # binary {0, 1}
+    - decision_score        # continuous alpha*x1 + beta*x2
+    - x1_feature            # raw feature value
+  r2_threshold: 0.5         # success criterion: R² > 0.5 in Layer 5-8
+  focus_layers: [5, 6, 7, 8]
+
+# Representation Geometry (rd7_representation_geometry.py)
+geometry:
+  tsne_layers: [0, 4, 8, 11]
+  tsne_perplexity_formula: "min(15, n_train // 3)"
+  cka_n_layers: 12
+  cka_matrix_size: [12, 12]
+  output_dpi: 150
+
+# Model strategy
+model_strategy:
+  # No classifier checkpoint available → use regressor with float targets
+  use_regressor_for_classification: true
+  classification_threshold: 0.5  # threshold for binary classification

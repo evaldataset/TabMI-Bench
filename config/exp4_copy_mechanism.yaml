@@ -1,0 +1,22 @@
+# config/exp4_copy_mechanism.yaml
+# Experiment 4: Copy Mechanism (Answer Token Input Probing)
+# Reproduces: Gupta et al. (2026) — Input recoverability from answer token
+# Script: experiments/exp4_copy_mechanism.py
+
+random_seed: 42
+quick_run: true
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+results_dir: results/exp4/
+
+# Model architecture
+n_layers: 12
+
+# Data generation: z = a·b + c
+n_datasets: 10          # quick=10, full=100
+n_train: 50
+n_test: 10
+
+# Probing targets from answer token
+targets: [a, b, c, "a*b"]
+complexities: [0]       # linear probe only

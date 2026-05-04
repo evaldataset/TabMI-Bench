@@ -1,0 +1,25 @@
+# config/exp1_coefficient.yaml
+# Experiment 1: Coefficient Probing (Linear Probe on α, β)
+# Reproduces: Gupta et al. (2026) Table 1 — Config 1 & Config 2
+# Script: experiments/exp1_coefficient_probing.py
+
+random_seed: 42
+quick_run: true
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+results_dir: results/exp1/
+
+# Model architecture
+n_layers: 12
+complexities: [0, 1, 2, 3]
+
+# Config 1: Multiple Fits, Pooled
+n_fits: 10              # quick=10, full=100
+n_train: 50
+n_test: 10
+alpha_range: [0.5, 5.0]
+beta_range: [0.5, 5.0]
+
+# Config 2: Single Fit, Switch Variable
+n_coefficient_pairs: 5  # quick=5, full=20
+n_samples_per_pair: 50

@@ -1,0 +1,22 @@
+# config/exp3_answer_logitlens.yaml
+# Experiment 3: Answer Probing + Logit Lens
+# Reproduces: Gupta et al. (2026) — Linear probe vs logit lens gap
+# Script: experiments/exp3_answer_probing_logit_lens.py
+
+random_seed: 42
+quick_run: true
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+results_dir: results/exp3/
+
+# Model architecture
+n_layers: 12
+complexities: [0, 1, 2, 3]
+
+# Data generation: z = a·b + c
+n_datasets: 10          # quick=10, full=100
+n_train: 50
+n_test: 10
+
+# Analysis
+r2_threshold: 0.5       # threshold for "first layer above" metric

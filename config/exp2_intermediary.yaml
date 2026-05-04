@@ -1,0 +1,22 @@
+# config/exp2_intermediary.yaml
+# Experiment 2: Intermediary Probing (Linear Probe on a·b)
+# Reproduces: Gupta et al. (2026) — Intermediate computation recovery
+# Script: experiments/exp2_intermediary_probing.py
+
+random_seed: 42
+quick_run: true
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+results_dir: results/exp2/
+
+# Model architecture
+n_layers: 12
+complexities: [0, 1, 2, 3]
+
+# Data generation: z = a·b + c
+n_datasets: 10          # quick=10, full=100
+n_train: 50
+n_test: 10
+a_range: [0.5, 3.0]
+b_range: [0.5, 3.0]
+c_range: [0.5, 3.0]

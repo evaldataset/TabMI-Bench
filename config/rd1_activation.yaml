@@ -1,0 +1,52 @@
+# config/rd1_activation.yaml
+# RD-1: Activation Patching — Hyperparameters
+# Phase 2, Milestone 5
+
+# Global
+random_seed: 42
+device: cpu
+model_path: tabpfn-v2-regressor.ckpt
+
+# Data
+n_train: 50
+n_test: 20
+
+# Coefficient Patching (rd1_coefficient_patching.py)
+coefficient_patching:
+  clean_alpha: 2.0
+  clean_beta: 3.0
+  corrupted_alpha: 5.0
+  corrupted_beta: 1.0
+  patch_effect_threshold: 0.3   # success criterion
+
+# Layer Sweep (rd1_layer_sweep.py)
+layer_sweep:
+  n_layers: 12
+  conditions:
+    - name: a_corrupted
+      col: 0
+      clean_val: 1.0
+      corrupt_val: 4.0
+    - name: b_corrupted
+      col: 1
+      clean_val: 2.0
+      corrupt_val: 5.0
+    - name: c_corrupted
+      col: 2
+      clean_val: 1.5
+      corrupt_val: 4.0
+
+# Intermediary Patching (rd1_intermediary_patching.py)
+intermediary_patching:
+  clean_a: 1.0
+  clean_b: 2.0    # a*b = 2
+  corrupted_a: 3.0
+  corrupted_b: 4.0  # a*b = 12
+  focus_layers: [5, 6, 7, 8]
+  patch_effect_threshold: 0.3   # success criterion
+  min_layers_above_threshold: 2  # at least 2 layers must exceed threshold
+
+# Patch effect metric
+patch_effect:
+  epsilon: 1e-8   # denominator stabilization
+  clip_range: [-0.5, 1.5]  # clip extreme values for visualization
