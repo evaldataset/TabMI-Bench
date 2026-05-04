@@ -62,27 +62,12 @@
   "distribution": [
     {
       "@type": "cr:FileObject",
-      "@id": "github-repo",
-      "name": "github-repo",
-      "description": "Public GitHub repository containing all source code, hooks, evaluation scripts, tests, and frozen artifacts.",
-      "contentUrl": "https://github.com/evaldataset/TabMI-Bench",
-      "encodingFormat": "application/zip"
-    },
-    {
-      "@type": "cr:FileObject",
-      "@id": "huggingface-dataset",
-      "name": "huggingface-dataset",
-      "description": "HuggingFace dataset repository with frozen JSON aggregated artifacts driving paper-facing tables and figures.",
-      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench",
-      "encodingFormat": "application/json"
-    },
-    {
-      "@type": "cr:FileObject",
       "@id": "rd5-fullscale-aggregated",
       "name": "rd5-fullscale-aggregated",
       "description": "Aggregated 5-seed multi-model intermediary probing results (Table 1 source).",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/rd5_fullscale_aggregated.json",
-      "encodingFormat": "application/json"
+      "encodingFormat": "application/json",
+      "sha256": "8bae47fa6f777ff1b8e4d8950470d99f3a024478d43997b09f4b24642881a1c3"
     },
     {
       "@type": "cr:FileObject",
@@ -90,7 +75,8 @@
       "name": "tabdpt-probing-3seed",
       "description": "TabDPT in-family holdout probing results aggregated over 3 seeds.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/tabdpt_probing_3seed.json",
-      "encodingFormat": "application/json"
+      "encodingFormat": "application/json",
+      "sha256": "09e6fe1cfcdec668ee6bbc0f8927aef63af4f10039c7db28145b4646ee53f055"
     },
     {
       "@type": "cr:FileObject",
@@ -98,7 +84,8 @@
       "name": "tabdpt-causal-3seed",
       "description": "TabDPT noising-based causal tracing results aggregated over 3 seeds.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/tabdpt_causal_3seed.json",
-      "encodingFormat": "application/json"
+      "encodingFormat": "application/json",
+      "sha256": "a19828d2f5ca3c3812651d5179532ff3fa882a01d92cf74735cab195859cf54b"
     },
     {
       "@type": "cr:FileObject",
@@ -106,7 +93,8 @@
       "name": "nam-holdout",
       "description": "NAM out-of-family holdout per-seed layer-wise R^2 profiles.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/nam_holdout.json",
-      "encodingFormat": "application/json"
+      "encodingFormat": "application/json",
+      "sha256": "ebf795a470ea11e5fa5b6d2a85c6287add70494cecba81e94ba038ed2c3653af"
     },
     {
       "@type": "cr:FileObject",
@@ -114,7 +102,8 @@
       "name": "lofo-primary-endpoint",
       "description": "Leave-one-function-out robustness for the primary endpoint sigma2_profile.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/lofo_primary_endpoint.json",
-      "encodingFormat": "application/json"
+      "encodingFormat": "application/json",
+      "sha256": "66fe13294502cd9c0a32616861b0ccb4aa11e7544da54f60b98943ad55173419"
     },
     {
       "@type": "cr:FileObject",
@@ -122,7 +111,26 @@
       "name": "tabpfn25-fullscale-aggregated",
       "description": "TabPFN v2 vs v2.5 logit-lens, coefficient probing, intermediary probing, and CKA aggregated over 3 seeds.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/tabpfn25_fullscale_aggregated.json",
-      "encodingFormat": "application/json"
+      "encodingFormat": "application/json",
+      "sha256": "3f81492cd2183a5e8bc82216162c75579bffccf5c19a0cc07b7533a85db94773"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "c1c2-baselines",
+      "name": "c1c2-baselines",
+      "description": "Negative-control baselines: shuffled-label probing and random-target probing per model and layer.",
+      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/c1c2_baselines.json",
+      "encodingFormat": "application/json",
+      "sha256": "c19cd33ef8e1e7b03ad26956cff8f932d985ce4f1d234a030d619bd7a7aadf5f"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "scale-10k-multiseed",
+      "name": "scale-10k-multiseed",
+      "description": "N=10K probing scale validation results aggregated over 3 seeds.",
+      "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/scale_10k_multiseed.json",
+      "encodingFormat": "application/json",
+      "sha256": "ecf8cb8572dcd9f4ea1c6cd569b52ab9b38a2d406ab18bb1b2da766f8e853eca"
     }
   ],
   "recordSet": [
@@ -254,7 +262,7 @@
           "description": "MI technique name (e.g. linear-probing, logit-lens, activation-patching, sae, cka).",
           "dataType": "sc:Text",
           "source": {
-            "fileObject": {"@id": "github-repo"},
+            "fileObject": {"@id": "rd5-fullscale-aggregated"},
             "extract": {"jsonPath": "$.technique"}
           }
         },
@@ -265,7 +273,7 @@
           "description": "TFM model name.",
           "dataType": "sc:Text",
           "source": {
-            "fileObject": {"@id": "github-repo"},
+            "fileObject": {"@id": "rd5-fullscale-aggregated"},
             "extract": {"jsonPath": "$.model"}
           }
         },
@@ -276,7 +284,7 @@
           "description": "Applicability label: Supported, Limited, or Not established.",
           "dataType": "sc:Text",
           "source": {
-            "fileObject": {"@id": "github-repo"},
+            "fileObject": {"@id": "rd5-fullscale-aggregated"},
             "extract": {"jsonPath": "$.label"}
           }
         }
