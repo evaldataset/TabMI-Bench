@@ -66,8 +66,7 @@
       "name": "github-repo",
       "description": "Public GitHub repository containing all source code, hooks, evaluation scripts, tests, and frozen artifacts.",
       "contentUrl": "https://github.com/evaldataset/TabMI-Bench",
-      "encodingFormat": "application/zip",
-      "sha256": "main-branch-head"
+      "encodingFormat": "application/zip"
     },
     {
       "@type": "cr:FileObject",
@@ -75,8 +74,7 @@
       "name": "huggingface-dataset",
       "description": "HuggingFace dataset repository with frozen JSON aggregated artifacts driving paper-facing tables and figures.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench",
-      "encodingFormat": "application/json",
-      "sha256": "main-branch-head"
+      "encodingFormat": "application/json"
     },
     {
       "@type": "cr:FileObject",
@@ -84,8 +82,7 @@
       "name": "rd5-fullscale-aggregated",
       "description": "Aggregated 5-seed multi-model intermediary probing results (Table 1 source).",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/rd5_fullscale_aggregated.json",
-      "encodingFormat": "application/json",
-      "sha256": "main-branch-head"
+      "encodingFormat": "application/json"
     },
     {
       "@type": "cr:FileObject",
@@ -93,8 +90,7 @@
       "name": "tabdpt-probing-3seed",
       "description": "TabDPT in-family holdout probing results aggregated over 3 seeds.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/tabdpt_probing_3seed.json",
-      "encodingFormat": "application/json",
-      "sha256": "main-branch-head"
+      "encodingFormat": "application/json"
     },
     {
       "@type": "cr:FileObject",
@@ -102,8 +98,7 @@
       "name": "tabdpt-causal-3seed",
       "description": "TabDPT noising-based causal tracing results aggregated over 3 seeds.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/tabdpt_causal_3seed.json",
-      "encodingFormat": "application/json",
-      "sha256": "main-branch-head"
+      "encodingFormat": "application/json"
     },
     {
       "@type": "cr:FileObject",
@@ -111,8 +106,7 @@
       "name": "nam-holdout",
       "description": "NAM out-of-family holdout per-seed layer-wise R^2 profiles.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/nam_holdout.json",
-      "encodingFormat": "application/json",
-      "sha256": "main-branch-head"
+      "encodingFormat": "application/json"
     },
     {
       "@type": "cr:FileObject",
@@ -120,8 +114,7 @@
       "name": "lofo-primary-endpoint",
       "description": "Leave-one-function-out robustness for the primary endpoint sigma2_profile.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/lofo_primary_endpoint.json",
-      "encodingFormat": "application/json",
-      "sha256": "main-branch-head"
+      "encodingFormat": "application/json"
     },
     {
       "@type": "cr:FileObject",
@@ -129,8 +122,7 @@
       "name": "tabpfn25-fullscale-aggregated",
       "description": "TabPFN v2 vs v2.5 logit-lens, coefficient probing, intermediary probing, and CKA aggregated over 3 seeds.",
       "contentUrl": "https://huggingface.co/datasets/EvalData/TabMI-Bench/resolve/main/tabpfn25_fullscale_aggregated.json",
-      "encodingFormat": "application/json",
-      "sha256": "main-branch-head"
+      "encodingFormat": "application/json"
     }
   ],
   "recordSet": [
@@ -304,8 +296,10 @@
   ],
   "rai:dataUseCases": "Evaluating new MI techniques on TFMs, benchmarking new TFM architectures against MI reference baselines, educational resource for understanding TFM internal computation.",
   "rai:dataSensitiveInformation": "No personally identifiable information (PII). No sensitive attributes beyond those in the original public datasets (e.g., Adult Income contains demographic attributes).",
+  "rai:personalSensitiveInformation": "No personally identifiable information (PII) is collected, generated, or distributed. Synthetic probes contain no human-subjects data. Real-world datasets are loaded at runtime from public repositories (scikit-learn, OpenML) and inherit only the demographic attributes already public in those sources (e.g., Adult Income age/sex/race columns); these are NOT augmented or transformed by TabMI-Bench. The benchmark itself does not perform any inference on individuals; it analyses model internal activations on tabular inputs.",
   "rai:dataSocialImpact": "Positive: enables standardized MI evaluation for tabular AI in high-stakes domains (credit scoring, medical diagnosis). Risk: benchmark outputs may create false confidence if over-interpreted as safety certifications. Mitigation: explicit scope limitations and risk caveats in the paper.",
   "rai:dataSyntheticGeneration": "Core synthetic probes are fully synthetic with known ground-truth intermediary variables. Real-world datasets are not synthetic.",
+  "rai:hasSyntheticData": true,
   "rai:dataMaintenancePlan": "Version-pinned snapshots ensure reproducibility. New model hooks and reference baselines will be added as TFMs are released. Community contributions welcomed via pull requests.",
   "rai:dataSourceDatasets": [
     {"name": "California Housing", "url": "https://www.openml.org/d/8092", "license": "CC0", "purpose": "real-world causal tracing + steering validation"},
