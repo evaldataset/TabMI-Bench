@@ -39,7 +39,7 @@
   "name": "TabMI-Bench",
   "description": "A protocol benchmark for evaluating mechanistic interpretability (MI) methods on Tabular Foundation Models (TFMs). Provides hook-based activation extraction for 5 TFMs across 3 architectural families, controlled synthetic probes (4 function types), negative controls, a 4-step evaluation protocol, and reference baseline measurements.",
   "conformsTo": "http://mlcommons.org/croissant/1.0",
-  "url": "https://github.com/evaldataset/TabMI-Bench",
+  "url": "https://anonymous.4open.science/r/TabMI-Bench/",
   "sameAs": "https://huggingface.co/datasets/EvalData/TabMI-Bench",
   "license": "https://opensource.org/licenses/MIT",
   "version": "1.0.0",
